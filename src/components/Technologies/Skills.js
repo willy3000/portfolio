@@ -1,11 +1,11 @@
-import { DiAndroid, DiTerminal } from "react-icons/di";
-import { SiJava, SiFirebase, SiGit } from "react-icons/si";
+import { DiAndroid, DiNodejs, DiPython, DiReact, DiTerminal } from "react-icons/di";
+import { SiJava, SiFirebase, SiGit, SiPython } from "react-icons/si";
 import { RiFlutterFill } from "react-icons/ri";
 
 export const Skills = [
   {
     slug: "ReactJs",
-    Component: DiAndroid,
+    Component: DiReact,
     title: "ReactJs",
     Description: () => <>I have worked with react in my early stages of development but swutched to NextJs due to added advantages such as routing, already included proxy and other advantages.</>,
   },
@@ -17,18 +17,24 @@ export const Skills = [
   },
   {
     slug: "Python",
-    Component: SiJava,
+    Component: SiPython,
     title: "Python",
     Description: () => <>I can code in Python. But I mainly use it for automation and scripting.</>,
   },
   {
     slug: "NodeJs",
-    Component: DiTerminal,
+    Component: DiNodejs,
     title: "NodeJs",
     Description: () => <>I have use NodeJs with express for backend development in conjustion with MongoDB to store data.</>,
   },
+  // {
+  //   slug: "Express",
+  //   Component: SiFirebase,
+  //   title: "Firebase",
+  //   Description: () => <>I have used Firebase for auth, database & analytics in my apps.</>,
+  // },
   {
-    slug: "Express",
+    slug: "Firebase",
     Component: SiFirebase,
     title: "Firebase",
     Description: () => <>I have used Firebase for auth, database & analytics in my apps.</>,
