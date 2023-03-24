@@ -3,7 +3,7 @@ export const projects = [
     title: "TenziLabs Website",
     description: "TenziLabs company website",
     image: "/images/tenziapps.png",
-    tags: ["ReactJs", "NextJs", "TailWind"],
+    tags: ["ReactJs", "NextJs", "TailWindCSS"],
     source: "company restricted",
     visit: "https://tenziapps.com",
     id: 0,
@@ -13,7 +13,7 @@ export const projects = [
     description:
       "A business management platform with various modules incliding a POS system, Sale module, Inventory, Ordering system, Reports e.t.c",
     image: "/images/tenzibizapp.png",
-    tags: ["ReactJs", "NextJs", "MaterialUI", "Firebae"],
+    tags: ["ReactJs", "NextJs", "MaterialUI", "Firebase"],
     source: "company restricted",
     visit: "https://biz.tenzi.africa",
     id: 1,

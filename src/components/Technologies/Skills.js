@@ -1,6 +1,7 @@
 import { DiAndroid, DiNodejs, DiPython, DiReact, DiTerminal } from "react-icons/di";
 import { SiJava, SiFirebase, SiGit, SiPython } from "react-icons/si";
 import { RiFlutterFill } from "react-icons/ri";
+import { SiNextDotJs } from "react-icons/si";
 
 export const Skills = [
   {
@@ -11,7 +12,7 @@ export const Skills = [
   },
   {
     slug: "NextJs",
-    Component: RiFlutterFill,
+    Component: SiNextDotJs,
     title: "NextJs",
     Description: () => <>Currently working with NextJs & MaterialUI on my current projects. </>,
   },
