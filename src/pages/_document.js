@@ -53,7 +53,7 @@ export default class MyDocument extends Document {
           />
           <meta
             property="og:image"
-            content="https://www.willy-j-wario-portfolio.netlify.app/images/banner.png"
+            content="https://willy-j-wario-portfolio.netlify.app/images/banner.png"
           />
           <meta property="twitter:card" content="summary_large_image" />
           <meta
@@ -66,7 +66,7 @@ export default class MyDocument extends Document {
           
           <meta
             property="twitter:image"
-            content="https://www.willy-j-wario-portfolio.netlify.app/images/banner.png"
+            content="https://willy-j-wario-portfolio.netlify.app/images/banner.png"
           />
         </Head>
         <body>
