@@ -12,7 +12,7 @@ const Hero = (props) => (
           Hey there,
         </SectionTitle>
         <SectionText>
-          Hey there, This is Willy Wario. I am a ReactJS/NextJS Developer with backend knowledge with nodeJS and no SQL databases like mongoDB.
+          Hey there, I'm Willy Wario. I am a Fullstack Developer currently focused in Frontend Development with ReactJS/NextJS. I'm also current with backend frameworks such as Express and SpringBoot with databases such as mySQL, postgresql and MongoDB.
         </SectionText>
         <Button onClick={(e) => {
           e.preventDefault();
