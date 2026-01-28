@@ -18,6 +18,16 @@ export const projects = [
     visit: "https://biz.tenzi.africa",
     id: 1,
   },
+  {
+    title: "Tech Inventory Management System",
+    description:
+      "A Tech Inventory management platform with various modules including authentication,  multi user, user permissions and roles and full CRUD including scanning item barcodes to input into inventory. It also includes a multi-tier system with a subscription payment system integrated with Paystack and Mpesa for payments.",
+    image: "/images/mibm-inventory.png",
+    tags: ["NextJs", "TailwindCSS", "Cloudinary", "NodeJs", "Paystack"],
+    source: "https://github.com/willy3000/inventory-project",
+    visit: "https://inventory-project-mibm.netlify.app/dashboard/users",
+    id: 2,
+  },
 ];
 
 export const TimeLineData = [

@@ -1,8 +1,23 @@
-import React from 'react';
-import { AiFillGithub, AiFillInstagram, AiFillLinkedin, AiFillTwitterCircle } from 'react-icons/ai';
-import { Link } from '../../styles/GlobalComponents';
-import { SocialIcons } from '../Header/HeaderStyles';
-import { CompanyContainer, FooterWrapper, LinkColumn, LinkItem, LinkList, LinkTitle, Slogan, SocialContainer, SocialIconsContainer } from './FooterStyles';
+import React from "react";
+import {
+  AiFillGithub,
+  AiFillInstagram,
+  AiFillLinkedin,
+  AiFillTwitterCircle,
+} from "react-icons/ai";
+import { Link } from "../../styles/GlobalComponents";
+import { SocialIcons } from "../Header/HeaderStyles";
+import {
+  CompanyContainer,
+  FooterWrapper,
+  LinkColumn,
+  LinkItem,
+  LinkList,
+  LinkTitle,
+  Slogan,
+  SocialContainer,
+  SocialIconsContainer,
+} from "./FooterStyles";
 
 const Footer = () => {
   return (
@@ -10,7 +25,7 @@ const Footer = () => {
       <LinkList>
         <LinkColumn>
           <LinkTitle>Phone</LinkTitle>
-          <LinkItem href="https://t.me/lordarcadius">+254114653949</LinkItem>
+          <LinkItem href="https://t.me/lordarcadius">+25479587919</LinkItem>
         </LinkColumn>
         <LinkColumn>
           <LinkTitle>Email</LinkTitle>
@@ -21,7 +36,10 @@ const Footer = () => {
       </LinkList>
       <SocialIconsContainer>
         <CompanyContainer>
-          <Slogan>&copy; 2023 <Link href="/">  Willy Wario</Link> . All rights reserved.</Slogan>
+          <Slogan>
+            &copy; {`${new Date().getFullYear()}`}{" "}
+            <Link href="/"> Willy Wario</Link> . All rights reserved.
+          </Slogan>
         </CompanyContainer>
         <SocialContainer>
           <SocialIcons href="https://github.com/willy3000">
@@ -38,7 +56,6 @@ const Footer = () => {
           </SocialIcons> */}
         </SocialContainer>
       </SocialIconsContainer>
-
     </FooterWrapper>
   );
 };
