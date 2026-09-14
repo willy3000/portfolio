@@ -20,6 +20,21 @@ export const facts = [
 
 export const projects = [
   {
+    id: 'pixel-realm',
+    size: 'full',
+    title: 'Pixel Realm V2',
+    context: 'Digital Realm Entertainment',
+    period: '2026',
+    status: 'Live',
+    summary:
+      'A marketplace for African digital assets, where 2D and 3D packs for games, film and XR are bought and sold. It spans an admin portal, storefront and landing page, built in Next.js and TypeScript on a Laravel REST API.',
+    tags: ['Next.js', 'TypeScript', 'TipTap', 'Laravel API'],
+    url: 'store.pixel-realm.net',
+    image: { src: '/images/pixel-realm.jpg', width: 1920, height: 900 },
+    links: [{ label: 'Visit store', href: 'https://store.pixel-realm.net/' }],
+    note: 'Private codebase',
+  },
+  {
     id: 'tenzibiz',
     size: 'full',
     title: 'TenziBiz',
@@ -35,7 +50,7 @@ export const projects = [
   },
   {
     id: 'mibm',
-    size: 'full',
+    size: 'half',
     title: 'MIBM Inventory',
     context: 'MIBM',
     period: '2024',
@@ -50,19 +65,6 @@ export const projects = [
     ],
   },
   {
-    id: 'pixel-realm',
-    size: 'half',
-    title: 'Pixel Realm V2',
-    context: 'Digital Realm Entertainment',
-    period: '2026',
-    status: 'In progress',
-    summary:
-      'A marketplace with three surfaces (admin portal, storefront and landing page) built in Next.js and TypeScript on a Laravel REST API.',
-    tags: ['Next.js', 'TypeScript', 'TipTap', 'Laravel API'],
-    illustration: 'surfaces',
-    note: 'Private codebase',
-  },
-  {
     id: 'hanawari',
     size: 'half',
     title: 'Hanawari',
@@ -71,9 +73,9 @@ export const projects = [
     summary:
       'An online store for a homemade Kenyan salsa brand, covering the storefront, product catalogue and transactional email sent through Resend on a verified domain.',
     tags: ['Next.js', 'Resend'],
-    url: 'hanawari.store',
-    illustration: 'storefront',
-    links: [{ label: 'Visit store', href: 'https://hanawari.store' }],
+    url: 'hanawari-web.netlify.app',
+    image: { src: '/images/hanawari.jpg', width: 1920, height: 900 },
+    links: [{ label: 'Visit store', href: 'https://hanawari-web.netlify.app/' }],
   },
 ];
 

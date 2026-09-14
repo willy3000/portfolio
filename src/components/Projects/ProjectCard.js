@@ -2,25 +2,18 @@ import React, { useRef } from 'react';
 import { FiArrowUpRight, FiLock } from 'react-icons/fi';
 
 import { useScrollProgress, useTilt } from '../../lib/motion';
-import { StorefrontIllustration, SurfacesIllustration } from './Illustrations';
 import {
   Badge, Body, Card, Frame, FrameBar, Links, Meta, Note, Stage, Summary, Tags, TextLink, Title, Url,
 } from './ProjectsStyles';
 
-const illustrations = {
-  surfaces: SurfacesIllustration,
-  storefront: StorefrontIllustration,
-};
-
 const ProjectCard = ({ project }) => {
   const {
-    title, context, period, status, summary, tags, url, image, illustration, links = [], note, size,
+    title, context, period, status, summary, tags, url, image, links = [], note, size,
   } = project;
   const full = size === 'full';
   const cardRef = useRef(null);
   const stageRef = useRef(null);
   const frameRef = useRef(null);
-  const Illustration = illustrations[illustration];
 
   useTilt(cardRef, frameRef);
 
@@ -82,27 +75,21 @@ const ProjectCard = ({ project }) => {
 
       <Stage ref={stageRef} $full={full}>
         <Frame ref={frameRef}>
-          {url && (
-            <FrameBar aria-hidden="true">
-              <i><b /><b /><b /></i>
-              <Url>
-                <FiLock />
-                {url}
-              </Url>
-            </FrameBar>
-          )}
-          {image ? (
-            <img
-              src={image.src}
-              width={image.width}
-              height={image.height}
-              alt={`${title} interface`}
-              loading="lazy"
-              decoding="async"
-            />
-          ) : (
-            Illustration && <Illustration />
-          )}
+          <FrameBar aria-hidden="true">
+            <i><b /><b /><b /></i>
+            <Url>
+              <FiLock />
+              {url}
+            </Url>
+          </FrameBar>
+          <img
+            src={image.src}
+            width={image.width}
+            height={image.height}
+            alt={`${title} interface`}
+            loading="lazy"
+            decoding="async"
+          />
         </Frame>
       </Stage>
     </Card>
