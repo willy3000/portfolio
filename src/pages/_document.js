@@ -1,5 +1,13 @@
-import Document, { Head, Html, Main, NextScript } from "next/document";
-import { ServerStyleSheet } from "styled-components";
+import Document, { Head, Html, Main, NextScript } from 'next/document';
+import { ServerStyleSheet } from 'styled-components';
+
+const TITLE = 'Willy Wario — Full-Stack Developer';
+const DESCRIPTION =
+  'Kenyan software engineer working in Kigali, Rwanda, with 5+ years shipping production web applications with React, Next.js, TypeScript, Node.js and REST APIs.';
+const IMAGE = 'https://willy-j-wario-portfolio.netlify.app/images/banner.png';
+
+// Runs before first paint so the page never flashes the wrong theme.
+const themeScript = `(function(){var r=document.documentElement;var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}r.dataset.theme=t})();`;
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -9,8 +17,7 @@ export default class MyDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App) => (props) =>
-            sheet.collectStyles(<App {...props} />),
+          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
         });
 
       const initialProps = await Document.getInitialProps(ctx);
@@ -27,47 +34,30 @@ export default class MyDocument extends Document {
       sheet.seal();
     }
   }
+
   render() {
     return (
       <Html lang="en-GB">
         <Head>
+          <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+          <link rel="icon" href="/favicon.ico" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap"
             rel="stylesheet"
           />
-          <meta
-            name="title"
-            content="Willy Wario - React/NextJs Frontend Developer"
-          />
-          <meta
-            name="description"
-            content="Hey there, This is Willy Wario. I am a ReactJS/NextJS Developer with backend knowledge with nodeJS and no SQL databases like mongoDB."/>
+          <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
+          <meta name="theme-color" content="#08080a" media="(prefers-color-scheme: dark)" />
+          <meta name="description" content={DESCRIPTION} />
           <meta property="og:type" content="website" />
-          <meta
-            property="og:title"
-            content="Willy Wario - React/NextJs Frontend Developer"
-          />
-          <meta
-            property="og:description"
-            content="Hey there, This is Willy Wario. I am a ReactJS/NextJS Developer with backend knowledge with nodeJS and no SQL databases like mongoDB."
-          />
-          <meta
-            property="og:image"
-            content="https://willy-j-wario-portfolio.netlify.app/images/banner.png"
-          />
-          <meta property="twitter:card" content="summary_large_image" />
-          <meta
-            property="twitter:title"
-            content="Willy Wario - React/NextJs Frontend Developer"
-          />
-          <meta
-            property="twitter:description"
-            content="Hey there, This is Willy Wario. I am a ReactJS/NextJS Developer with backend knowledge with nodeJS and no SQL databases like mongoDB."/>
-          
-          <meta
-            property="twitter:image"
-            content="https://willy-j-wario-portfolio.netlify.app/images/banner.png"
-          />
+          <meta property="og:title" content={TITLE} />
+          <meta property="og:description" content={DESCRIPTION} />
+          <meta property="og:image" content={IMAGE} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={TITLE} />
+          <meta name="twitter:description" content={DESCRIPTION} />
+          <meta name="twitter:image" content={IMAGE} />
         </Head>
         <body>
           <Main />

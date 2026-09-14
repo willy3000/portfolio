@@ -1,126 +1,197 @@
-import { IoIosArrowDropdown } from 'react-icons/io';
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 1fr;
-  grid-column-gap: 2rem;
-  padding: 1rem;
-  padding-top: 2rem;
+export const Bar = styled.header`
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: var(--nav-height);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 
-  @media ${(props) => props.theme.breakpoints.sm} {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 60px);
-    grid-column-gap: 0.5rem;
-    grid-row-gap: 0.5rem;
+  /* Material appears only once content scrolls underneath it. */
+  &[data-scrolled='true'],
+  &[data-menu='true'] {
+    background: var(--material);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 1px 0 var(--hairline);
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    &[data-scrolled='true'],
+    &[data-menu='true'] {
+      background: var(--bg);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
   }
 `;
-export const Div1 = styled.div`
-  grid-area: 1 / 1 / 2 / 2;
+
+export const Inner = styled.nav`
   display: flex;
-  flex-direction: row;
-  align-content: center;
-  @media ${(props) => props.theme.breakpoints.sm} {
-    grid-area: 1 / 1 / 2 / 3;
-  }
-`;
-export const Div2 = styled.div`
-  grid-area: 1 / 2 / 2 / 4;
-  display: flex;
-  margin-top: 0.75em;
-  justify-content: space-between;
-  @media ${(props) => props.theme.breakpoints.sm} {
-    grid-area: 2 / 2 / 3 / 5;
-  }
-`;
-export const Div3 = styled.div`
-  grid-area: 1 / 5 / 2 / 6;
-  display: flex;
-  justify-content: space-around;
   align-items: center;
-  @media ${(props) => props.theme.breakpoints.sm} {
-    align-items: center;
-    grid-area: 1 / 4 / 2 / 6;
-  }
+  gap: 1rem;
+  height: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 `;
 
-// Navigation Links
-export const NavLink = styled.a`
-  font-size: 2rem;
-  line-height: 32px;
-  color: rgba(255, 255, 255, 0.75);
-  transition: 0.4s ease;
-  &:hover {
-    color: #fff;
-    opacity: 1;
-    cursor: pointer;
-  }
-  @media ${(props) => props.theme.breakpoints.sm} {
-    padding: 0.5rem;
-    font-size: 1.7rem;
-  }
+export const Brand = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-right: auto;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
 `;
 
-/// DropDown Contact
-export const ContactDropDown = styled.button`
-  border: none;
-  display: flex;
+export const Monogram = styled.span`
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.5rem;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+`;
+
+export const Links = styled.ul`
   position: relative;
-  background: none;
-  font-size: 1.7rem;
-
-  line-height: 32px;
-  color: rgba(255, 255, 255, 0.75);
-  cursor: pointer;
-  transition: 0.3s ease;
-
-  &:focus {
-    outline: none;
-  }
-  &:hover {
-    color: #fff;
-  }
-
-  @media ${(props) => props.theme.breakpoints.sm} {
-    padding: 0.4rem 0;
-  }
-  @media ${(props) => props.theme.breakpoints.md} {
-    padding: 0;
-  }
-`;
-
-export const NavProductsIcon = styled(IoIosArrowDropdown)`
-  margin-left: 8px;
   display: flex;
-  align-self: center;
-  transition: 0.3s ease;
-  opacity: ${({ isOpen }) => (isOpen ? '1' : '.75')};
-  transform: ${({ isOpen }) => (isOpen ? 'scaleY(-1)' : 'scaleY(1)')};
+  align-items: center;
 
-  &:hover {
-    opacity: 1;
-  }
-
-  @media ${(props) => props.theme.breakpoints.sm} {
-    margin: 2px 0 0 2px;
-    width: 15px;
+  @media ${(p) => p.theme.breakpoints.md} {
+    display: none;
   }
 `;
 
+export const Pill = styled.span`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--fill);
+  opacity: 0;
+  pointer-events: none;
+`;
 
-// Social Icons 
+export const NavLink = styled.a`
+  position: relative;
+  display: block;
+  padding: 0.375rem 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.006em;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
 
-export const SocialIcons = styled.a`
-transition: 0.3s ease;
-color: white;
-border-radius: 50px;
-  padding: 8px;
-&:hover {
-    background-color: #212d45;
-    transform: scale(1.2);
-    cursor: pointer;
-    
+  &:hover,
+  &[aria-current='true'] {
+    color: var(--text);
   }
-`
+`;
+
+export const Actions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  @media ${(p) => p.theme.breakpoints.md} {
+    .resume { display: none; }
+  }
+`;
+
+export const IconButton = styled.button`
+  display: grid;
+  place-items: center;
+  width: 2.125rem;
+  height: 2.125rem;
+  border-radius: 999px;
+  color: var(--text-secondary);
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s var(--ease-out);
+
+  &:hover {
+    background: var(--fill);
+    color: var(--text);
+  }
+  &:active {
+    transform: scale(0.92);
+    transition: transform 0.1s ease-out;
+  }
+
+  svg { width: 1.0625rem; height: 1.0625rem; }
+
+  .icon-moon { display: none; }
+  :root[data-theme='dark'] & .icon-sun { display: none; }
+  :root[data-theme='dark'] & .icon-moon { display: block; }
+`;
+
+export const MenuButton = styled(IconButton)`
+  display: none;
+
+  @media ${(p) => p.theme.breakpoints.md} {
+    display: grid;
+  }
+
+  span {
+    position: absolute;
+    width: 1rem;
+    height: 1.5px;
+    border-radius: 1px;
+    background: currentColor;
+    transition: transform 0.35s var(--ease-out);
+  }
+  span:first-child { transform: translateY(-3px); }
+  span:last-child { transform: translateY(3px); }
+
+  &[aria-expanded='true'] span:first-child { transform: rotate(45deg); }
+  &[aria-expanded='true'] span:last-child { transform: rotate(-45deg); }
+`;
+
+export const Menu = styled.div`
+  position: fixed;
+  top: calc(var(--nav-height) + 0.5rem);
+  right: var(--gutter);
+  left: var(--gutter);
+  z-index: 49;
+  padding: 0.5rem;
+  border-radius: 1.25rem;
+  background: var(--material-heavy);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  box-shadow: var(--shadow-float), inset 0 0 0 1px var(--material-edge);
+  transform-origin: top right;
+  opacity: 0;
+  visibility: hidden;
+
+  &[data-open='false'] { pointer-events: none; }
+
+  a:not(.resume) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.875rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 1.1875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    transition: background-color 0.15s ease;
+  }
+  a:not(.resume):active { background: var(--fill); }
+
+  .resume {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    background: var(--bg-raised);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+`;

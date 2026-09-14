@@ -1,63 +1,24 @@
-import React from "react";
-import {
-  AiFillGithub,
-  AiFillInstagram,
-  AiFillLinkedin,
-  AiFillTwitterCircle,
-} from "react-icons/ai";
-import { Link } from "../../styles/GlobalComponents";
-import { SocialIcons } from "../Header/HeaderStyles";
-import {
-  CompanyContainer,
-  FooterWrapper,
-  LinkColumn,
-  LinkItem,
-  LinkList,
-  LinkTitle,
-  Slogan,
-  SocialContainer,
-  SocialIconsContainer,
-} from "./FooterStyles";
+import React from 'react';
+import { FiArrowUp } from 'react-icons/fi';
 
-const Footer = () => {
-  return (
-    <FooterWrapper>
-      <LinkList>
-        <LinkColumn>
-          <LinkTitle>Phone</LinkTitle>
-          <LinkItem href="https://t.me/lordarcadius">+25479587919</LinkItem>
-        </LinkColumn>
-        <LinkColumn>
-          <LinkTitle>Email</LinkTitle>
-          <LinkItem href="mailto:willywario0@gmail.com">
-            willywario0@gmail.com
-          </LinkItem>
-        </LinkColumn>
-      </LinkList>
-      <SocialIconsContainer>
-        <CompanyContainer>
-          <Slogan>
-            &copy; {`${new Date().getFullYear()}`}{" "}
-            <Link href="/"> Willy Wario</Link> . All rights reserved.
-          </Slogan>
-        </CompanyContainer>
-        <SocialContainer>
-          <SocialIcons href="https://github.com/willy3000">
-            <AiFillGithub size="3rem" />
-          </SocialIcons>
-          <SocialIcons href="https://www.linkedin.com/in/willy-wario-6833021a6">
-            <AiFillLinkedin size="3rem" />
-          </SocialIcons>
-          {/* <SocialIcons href="https://www.instagram.com/lordarcadius">
-            <AiFillInstagram size="3rem" />
-          </SocialIcons>
-          <SocialIcons href="https://www.twitter.com/lordarcadius">
-            <AiFillTwitterCircle size="3rem" />
-          </SocialIcons> */}
-        </SocialContainer>
-      </SocialIconsContainer>
-    </FooterWrapper>
-  );
-};
+import { profile } from '../../constants/constants';
+import { Container } from '../../styles/GlobalComponents';
+import { FooterBar, Inner } from './FooterStyles';
+
+const Footer = () => (
+  <FooterBar>
+    <Container>
+      <Inner>
+        <p>
+          © {new Date().getFullYear()} {profile.name}. Designed and built in {profile.location}.
+        </p>
+        <a href="#top">
+          Back to top
+          <FiArrowUp aria-hidden="true" />
+        </a>
+      </Inner>
+    </Container>
+  </FooterBar>
+);
 
 export default Footer;
