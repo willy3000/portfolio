@@ -6,8 +6,11 @@ const DESCRIPTION =
   'Kenyan software engineer working in Kigali, Rwanda, with 5+ years shipping production web applications with React, Next.js, TypeScript, Node.js and REST APIs.';
 const IMAGE = 'https://willy-j-wario-portfolio.netlify.app/images/banner.png';
 
-// Runs before first paint so the page never flashes the wrong theme.
-const themeScript = `(function(){var r=document.documentElement;var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}r.dataset.theme=t})();`;
+// Runs before first paint and picks the presentation. "on" stages the content
+// as a scroll-driven 3D journey; "off" is the same content as a calm, static
+// page. A stored choice wins, then the reduced-motion preference. Without
+// JavaScript the attribute is never set and the static layout is used.
+const motionScript = `(function(){var r=document.documentElement;var m=null;try{m=localStorage.getItem('motion')}catch(e){}if(m!=='on'&&m!=='off'){m=window.matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on'}if(!window.WebGLRenderingContext)m='off';r.dataset.motion=m})();`;
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -39,16 +42,15 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en-GB">
         <Head>
-          <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+          <script dangerouslySetInnerHTML={{ __html: motionScript }} />
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;500&display=swap"
             rel="stylesheet"
           />
-          <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
-          <meta name="theme-color" content="#08080a" media="(prefers-color-scheme: dark)" />
+          <meta name="theme-color" content="#05070b" />
           <meta name="description" content={DESCRIPTION} />
           <meta property="og:type" content="website" />
           <meta property="og:title" content={TITLE} />

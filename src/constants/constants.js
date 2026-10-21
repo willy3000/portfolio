@@ -33,6 +33,11 @@ export const projects = [
     image: { src: '/images/pixel-realm.jpg', width: 1920, height: 900 },
     links: [{ label: 'Visit store', href: 'https://store.pixel-realm.net/' }],
     note: 'Private codebase',
+    role: 'Full-Stack Developer',
+    contributions: [
+      'Migrated rich-text editing from React Quill to TipTap and carried out a major Next.js upgrade without regressing existing features.',
+      'Resolved authentication-flow defects, SSR hydration errors and theme flashes, improving first-load stability.',
+    ],
   },
   {
     id: 'tenzibiz',
@@ -47,6 +52,11 @@ export const projects = [
     image: { src: '/images/tenzibizapp.png', width: 1880, height: 857 },
     links: [{ label: 'Visit site', href: 'https://biz.tenzi.africa' }],
     note: 'Company codebase',
+    role: 'Junior Frontend Developer',
+    contributions: [
+      'Delivered TenziBiz and the company website, both built with Next.js.',
+      'Worked directly with designers to ship new UI, and fixed defects affecting performance and reliability.',
+    ],
   },
   {
     id: 'mibm',
@@ -63,6 +73,10 @@ export const projects = [
       { label: 'Live demo', href: 'https://inventory-project-mibm.netlify.app/dashboard/users' },
       { label: 'Source code', href: 'https://github.com/willy3000/inventory-project' },
     ],
+    role: 'IT Support Intern',
+    contributions: [
+      'Built the system in-house with Next.js and Express to track hardware, employee assignments, item status and audit logs.',
+    ],
   },
   {
     id: 'hanawari',
@@ -76,6 +90,7 @@ export const projects = [
     url: 'hanawari-web.netlify.app',
     image: { src: '/images/hanawari.jpg', width: 1920, height: 900 },
     links: [{ label: 'Visit store', href: 'https://hanawari-web.netlify.app/' }],
+    role: 'Independent project',
   },
 ];
 
@@ -160,4 +175,83 @@ export const toolkit = [
   { label: 'Backend & APIs', items: 'Node.js, Express, .NET, REST API design and integration' },
   { label: 'Databases', items: 'MongoDB, Firebase' },
   { label: 'Tools', items: 'Git, Yarn, npm, Linux, cloud platforms' },
+];
+
+// The technologies the skills sequence morphs through, in order. Every entry is
+// backed by the toolkit above or by a project and role on this page.
+export const skills = [
+  {
+    id: 'react',
+    name: 'React',
+    kind: 'UI library',
+    color: '#61dafb',
+    text: 'The core of my client-side work, from the production React app at TenziLabs to every Next.js project here. React Native extends it to mobile.',
+    usedIn: ['TenziLabs', 'Pixel Realm V2', 'TenziBiz', 'MIBM Inventory'],
+  },
+  {
+    id: 'nextdotjs',
+    name: 'Next.js',
+    kind: 'Framework',
+    color: '#f2f4f8',
+    text: 'Pixel Realm V2, TenziBiz, MIBM Inventory and Hanawari all run on Next.js, including a major version upgrade at Digital Realm.',
+    usedIn: ['Pixel Realm V2', 'TenziBiz', 'MIBM Inventory', 'Hanawari'],
+  },
+  {
+    id: 'typescript',
+    name: 'TypeScript',
+    kind: 'Language',
+    color: '#3f8ae0',
+    text: 'Pixel Realm V2 and the production React application I maintained at TenziLabs are written in TypeScript.',
+    usedIn: ['Pixel Realm V2', 'TenziLabs'],
+  },
+  {
+    id: 'nodedotjs',
+    name: 'Node.js & Express',
+    kind: 'Runtime',
+    color: '#6cc24a',
+    text: 'Express on Node.js serves the MIBM Inventory back end: role-based permissions, barcode intake, audit logs and subscriptions.',
+    usedIn: ['MIBM Inventory'],
+  },
+  {
+    id: 'mongodb',
+    name: 'MongoDB',
+    kind: 'Database',
+    color: '#47a248',
+    text: 'A document database in my core toolkit, alongside Firebase.',
+    usedIn: ['Toolkit'],
+  },
+  {
+    id: 'firebase',
+    name: 'Firebase',
+    kind: 'Backend platform',
+    color: '#ffa000',
+    text: 'The data and back-end layer behind TenziBiz, the business management platform I helped deliver at TenziLabs.',
+    usedIn: ['TenziBiz'],
+  },
+  {
+    id: 'python',
+    name: 'Python',
+    kind: 'Language',
+    color: '#3776ab',
+    text: 'At NHIF I designed an object-oriented Python system that cleanses large Excel datasets before they reach the main database over REST APIs.',
+    usedIn: ['NHIF'],
+  },
+];
+
+// "Other stacks I use": the rest of the toolkit above, plus libraries named in
+// the projects. C# and SQL have no official single-colour mark in the icon set,
+// so they are drawn as typographic marks rather than imitations.
+export const stacks = [
+  { id: 'javascript', name: 'JavaScript', color: '#f7df1e', note: 'Language' },
+  { id: 'csharp', name: 'C#', color: '#a179dc', note: 'Language', mark: 'C#' },
+  { id: 'dotnet', name: '.NET', color: '#8a6cf5', note: 'Back end' },
+  { id: 'sql', name: 'SQL', color: '#4fb3d9', note: 'Language', mark: 'SQL' },
+  { id: 'html5', name: 'HTML', color: '#e96a3a', note: 'Front end' },
+  { id: 'css3', name: 'CSS', color: '#3d9be9', note: 'Front end' },
+  { id: 'tailwindcss', name: 'Tailwind CSS', color: '#22c3e6', note: 'MIBM Inventory' },
+  { id: 'mui', name: 'Material UI', color: '#3399ff', note: 'TenziBiz' },
+  { id: 'git', name: 'Git', color: '#f05032', note: 'Tools' },
+  { id: 'linux', name: 'Linux', color: '#fcc624', note: 'Tools' },
+  { id: 'npm', name: 'npm', color: '#e0484a', note: 'Tools' },
+  { id: 'yarn', name: 'Yarn', color: '#3fa3d6', note: 'Tools' },
 ];

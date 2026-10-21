@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const FooterBar = styled.footer`
+  position: relative;
+  z-index: 1;
   padding-bottom: 2.5rem;
 `;
 

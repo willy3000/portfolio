@@ -126,9 +126,7 @@ export const IconButton = styled.button`
 
   svg { width: 1.0625rem; height: 1.0625rem; }
 
-  .icon-moon { display: none; }
-  :root[data-theme='dark'] & .icon-sun { display: none; }
-  :root[data-theme='dark'] & .icon-moon { display: block; }
+  &[aria-pressed='true'] { color: var(--cyan); }
 `;
 
 export const MenuButton = styled(IconButton)`
@@ -193,5 +191,87 @@ export const Menu = styled.div`
     background: var(--bg-raised);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+`;
+
+// Journey rail: where you are in the story, and a way to jump through it.
+export const Rail = styled.nav`
+  position: fixed;
+  top: 50%;
+  right: 1.25rem;
+  z-index: 40;
+  display: none;
+  transform: translateY(-50%);
+
+  @media (min-width: 75rem) {
+    html[data-motion='on'] & { display: block; }
+  }
+
+  ol {
+    position: relative;
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    height: 2rem;
+    padding-right: 1.25rem;
+    color: var(--text-tertiary);
+    transition: color 0.25s ease;
+  }
+  a span:last-child {
+    position: absolute;
+    right: 3.25rem;
+    font-size: 0.8125rem;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(6px);
+    transition: opacity 0.25s ease, transform 0.35s var(--ease-out);
+  }
+  a .mono { font-size: 0.625rem; }
+  a::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--bg);
+    box-shadow: inset 0 0 0 1px var(--hairline-strong);
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  a:hover,
+  a:focus-visible,
+  a[aria-current='true'] { color: var(--text); }
+  a:hover span:last-child,
+  a:focus-visible span:last-child {
+    opacity: 1;
+    transform: none;
+  }
+  a[aria-current='true']::after {
+    background: var(--cyan);
+    box-shadow: 0 0 12px var(--cyan);
+  }
+`;
+
+export const RailFill = styled.span`
+  position: absolute;
+  top: 1rem;
+  bottom: 1rem;
+  right: 0;
+  width: 1px;
+  background: var(--hairline);
+
+  i {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(var(--cyan), var(--violet));
+    transform-origin: top;
+    transform: scaleY(0);
   }
 `;

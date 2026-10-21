@@ -1,31 +1,34 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { FiArrowRight, FiMoon, FiSun } from 'react-icons/fi';
+import { FiArrowRight, FiZap, FiZapOff } from 'react-icons/fi';
 
 import { profile } from '../../constants/constants';
+import {
+  MOTION_EVENT, SECTION_EVENT, getMotion, setMotion,
+} from '../../experience/story';
 import { createSprings, prefersReducedMotion } from '../../lib/motion';
 import Button from '../../styles/GlobalComponents/Button';
 import {
-  Actions, Bar, Brand, IconButton, Inner, Links, Menu, MenuButton, Monogram, NavLink, Pill,
+  Actions, Bar, Brand, IconButton, Inner, Links, Menu, MenuButton, Monogram, NavLink, Pill, Rail, RailFill,
 } from './HeaderStyles';
 
 const SECTIONS = [
   { id: 'work', label: 'Work' },
+  { id: 'skills', label: 'Skills' },
   { id: 'experience', label: 'Experience' },
-  { id: 'capabilities', label: 'Capabilities' },
   { id: 'contact', label: 'Contact' },
 ];
 
-const setTheme = (theme) => {
-  const root = document.documentElement;
-  root.classList.add('theme-transition');
-  root.dataset.theme = theme;
-  window.setTimeout(() => root.classList.remove('theme-transition'), 450);
-};
+const CHAPTERS = [{ id: 'top', label: 'Intro' }, ...SECTIONS];
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [motionOn, setMotionOn] = useState(true);
+  // While the journey runs it reports the section; otherwise use the spy.
+  const [journeySection, setJourneySection] = useState(undefined);
+  const section = journeySection !== undefined ? (journeySection === 'top' ? null : journeySection) : active;
+  const fillRef = useRef(null);
 
   const itemRefs = useRef({});
   const pillRef = useRef(null);
@@ -35,28 +38,36 @@ const Header = () => {
   const menuButtonRef = useRef(null);
   const menu = useRef(null);
 
+  // One scroll listener: header material, scroll spy and journey progress.
+  // Anchors sit where each chapter's content is fully formed, so the active
+  // link is the last anchor above the middle of the viewport.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // Scroll spy: the section crossing the middle of the viewport is current.
-  useEffect(() => {
-    const targets = ['top', ...SECTIONS.map((s) => s.id)]
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id === 'top' ? null : entry.target.id);
-        });
-      },
-      { rootMargin: '-45% 0px -54% 0px' }
-    );
-    targets.forEach((t) => observer.observe(t));
-    return () => observer.disconnect();
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const y = window.scrollY;
+      setScrolled(y > 8);
+      const middle = window.innerHeight * 0.5;
+      let current = null;
+      SECTIONS.forEach(({ id }) => {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= middle) current = id;
+      });
+      setActive(current);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (fillRef.current) fillRef.current.style.transform = `scaleY(${max > 0 ? y / max : 0})`;
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
   }, []);
 
   // Highlight pill that springs between links.
@@ -89,8 +100,8 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    if (!hovered.current) movePill(active);
-  }, [active, movePill]);
+    if (!hovered.current) movePill(section);
+  }, [section, movePill]);
 
   const onLinkEnter = (id) => {
     hovered.current = id;
@@ -98,7 +109,7 @@ const Header = () => {
   };
   const onLinksLeave = () => {
     hovered.current = null;
-    movePill(active);
+    movePill(section);
   };
 
   // Mobile menu: one spring drives presence so it can reverse mid-flight.
@@ -145,23 +156,20 @@ const Header = () => {
     };
   }, [menuOpen]);
 
-  // Follow the system theme until the visitor picks one.
   useEffect(() => {
-    const query = window.matchMedia('(prefers-color-scheme: dark)');
-    const onChange = (e) => {
-      let stored = null;
-      try { stored = localStorage.getItem('theme'); } catch (err) { /* storage unavailable */ }
-      if (!stored) setTheme(e.matches ? 'dark' : 'light');
-    };
-    query.addEventListener('change', onChange);
-    return () => query.removeEventListener('change', onChange);
+    const sync = () => setMotionOn(getMotion());
+    sync();
+    window.addEventListener(MOTION_EVENT, sync);
+    return () => window.removeEventListener(MOTION_EVENT, sync);
   }, []);
 
-  const toggleTheme = () => {
-    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-    setTheme(next);
-    try { localStorage.setItem('theme', next); } catch (err) { /* storage unavailable */ }
-  };
+  useEffect(() => {
+    const onSection = (event) => setJourneySection(event.detail);
+    window.addEventListener(SECTION_EVENT, onSection);
+    return () => window.removeEventListener(SECTION_EVENT, onSection);
+  }, []);
+
+  const toggleMotion = () => setMotion(!getMotion());
 
   return (
     <>
@@ -179,7 +187,7 @@ const Header = () => {
                 <NavLink
                   href={`#${id}`}
                   ref={(node) => { itemRefs.current[id] = node; }}
-                  aria-current={active === id}
+                  aria-current={section === id}
                   onPointerEnter={() => onLinkEnter(id)}
                   onFocus={() => onLinkEnter(id)}
                   onBlur={onLinksLeave}
@@ -191,9 +199,14 @@ const Header = () => {
           </Links>
 
           <Actions>
-            <IconButton type="button" onClick={toggleTheme} aria-label="Toggle colour theme">
-              <FiSun className="icon-sun" aria-hidden="true" />
-              <FiMoon className="icon-moon" aria-hidden="true" />
+            <IconButton
+              type="button"
+              onClick={toggleMotion}
+              aria-pressed={motionOn}
+              aria-label="3D scroll animation"
+              title={motionOn ? 'Turn the 3D animation off' : 'Turn the 3D animation on'}
+            >
+              {motionOn ? <FiZap aria-hidden="true" /> : <FiZapOff aria-hidden="true" />}
             </IconButton>
             <Button className="resume" $size="sm" href={profile.resume} target="_blank" rel="noopener noreferrer">
               Résumé
@@ -212,6 +225,20 @@ const Header = () => {
           </Actions>
         </Inner>
       </Bar>
+
+      <Rail aria-label="Journey">
+        <RailFill aria-hidden="true"><i ref={fillRef} /></RailFill>
+        <ol>
+          {CHAPTERS.map(({ id, label }, i) => (
+            <li key={id}>
+              <a href={`#${id}`} aria-current={(section || 'top') === id}>
+                <span className="mono">{String(i + 1).padStart(2, '0')}</span>
+                <span>{label}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </Rail>
 
       <Menu id="mobile-menu" ref={menuRef} data-open={menuOpen}>
         {SECTIONS.map(({ id, label }) => (

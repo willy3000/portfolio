@@ -1,81 +1,54 @@
 import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'styled-normalize';
 
-const light = `
-  --bg: #fbfbfd;
-  --bg-raised: #ffffff;
-  --surface: #f2f2f5;
-  --surface-strong: #e7e7ec;
-  --fill: rgba(0, 0, 0, 0.05);
-  --fill-strong: rgba(0, 0, 0, 0.09);
-  --text: #1d1d1f;
-  --text-secondary: #5e5e66;
-  --text-tertiary: #8a8a91;
-  --hairline: rgba(0, 0, 0, 0.08);
-  --hairline-strong: rgba(0, 0, 0, 0.14);
-  --accent: #0a66d8;
-  --accent-hover: #0858bd;
+// One art-directed palette: the experience is staged in a dark, lit space, so
+// there is no light theme. Token names are shared by every component.
+const palette = `
+  --bg: #05070b;
+  --bg-raised: #0b0f16;
+  --surface: #0d121b;
+  --surface-strong: #151c28;
+  --fill: rgba(170, 200, 255, 0.07);
+  --fill-strong: rgba(170, 200, 255, 0.13);
+  --text: #e9edf5;
+  --text-secondary: #a1aabb;
+  --text-tertiary: #7d8699;
+  --hairline: rgba(170, 200, 255, 0.1);
+  --hairline-strong: rgba(170, 200, 255, 0.2);
+  --accent: #2f8cff;
+  --accent-hover: #4a9bff;
   --accent-text: #ffffff;
-  --link: #0a66d8;
-  --accent-soft: rgba(10, 102, 216, 0.1);
-  --positive: #1a9a52;
-  --material: rgba(251, 251, 253, 0.72);
-  --material-heavy: rgba(255, 255, 255, 0.84);
-  --material-edge: rgba(255, 255, 255, 0.7);
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 30px rgba(0, 0, 0, 0.05);
-  --shadow-float: 0 2px 8px rgba(0, 0, 0, 0.06), 0 30px 70px rgba(0, 0, 0, 0.14);
-  --glow: rgba(10, 102, 216, 0.1);
-  --grid-dot: rgba(0, 0, 0, 0.09);
-  --sheen: rgba(255, 255, 255, 0.35);
-`;
-
-const dark = `
-  --bg: #08080a;
-  --bg-raised: #121215;
-  --surface: #121215;
-  --surface-strong: #1f1f23;
-  --fill: rgba(255, 255, 255, 0.07);
-  --fill-strong: rgba(255, 255, 255, 0.12);
-  --text: #f5f5f7;
-  --text-secondary: #a3a3aa;
-  --text-tertiary: #6f6f77;
-  --hairline: rgba(255, 255, 255, 0.08);
-  --hairline-strong: rgba(255, 255, 255, 0.15);
-  --accent: #0b6ee6;
-  --accent-hover: #1f7ff2;
-  --accent-text: #ffffff;
-  --link: #5ea3ff;
-  --accent-soft: rgba(94, 163, 255, 0.16);
-  --positive: #34c46e;
-  --material: rgba(16, 16, 19, 0.7);
-  --material-heavy: rgba(22, 22, 26, 0.82);
-  --material-edge: rgba(255, 255, 255, 0.08);
+  --link: #7cd4ff;
+  --cyan: #5cd0ff;
+  --violet: #9a8bff;
+  --accent-soft: rgba(92, 208, 255, 0.14);
+  --positive: #3ddc84;
+  --material: rgba(7, 10, 16, 0.66);
+  --material-heavy: rgba(11, 15, 22, 0.88);
+  --material-edge: rgba(170, 200, 255, 0.1);
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.35);
   --shadow-float: 0 2px 8px rgba(0, 0, 0, 0.5), 0 40px 90px rgba(0, 0, 0, 0.6);
-  --glow: rgba(46, 128, 255, 0.16);
-  --grid-dot: rgba(255, 255, 255, 0.075);
-  --sheen: rgba(255, 255, 255, 0.12);
+  --glow: rgba(92, 208, 255, 0.14);
+  --grid-dot: rgba(170, 200, 255, 0.07);
+  --sheen: rgba(255, 255, 255, 0.1);
 `;
 
 const GlobalStyles = createGlobalStyle`
   ${normalize};
 
   :root {
-    ${light}
-    color-scheme: light;
+    ${palette}
+    color-scheme: dark;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --font: ${(props) => props.theme.fonts.main};
+    --font-mono: ${(props) => props.theme.fonts.mono};
+    --font-serif: ${(props) => props.theme.fonts.serif};
     --gutter: clamp(1.25rem, 4vw, 2.5rem);
     --nav-height: 3.5rem;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme='light']) { ${dark} color-scheme: dark; }
-  }
-  :root[data-theme='dark'] { ${dark} color-scheme: dark; }
-
   @media (prefers-contrast: more) {
-    :root, :root[data-theme] {
+    :root {
       --text-secondary: var(--text);
       --hairline: var(--hairline-strong);
     }
@@ -145,15 +118,6 @@ const GlobalStyles = createGlobalStyle`
     border-radius: 6px;
   }
 
-  /* Eases the brightness change when the theme is toggled. */
-  html.theme-transition,
-  html.theme-transition *,
-  html.theme-transition *::before,
-  html.theme-transition *::after {
-    transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease,
-      fill 0.4s ease, box-shadow 0.4s ease !important;
-  }
-
   /* Scroll reveals, applied by the Reveal component once it has mounted. */
   [data-reveal='hidden'] {
     opacity: 0;
@@ -200,6 +164,26 @@ const GlobalStyles = createGlobalStyle`
     transform: translateY(-200%);
   }
   .skip-link:focus-visible { transform: none; }
+
+  /* Journey overlays start hidden and are revealed at their stop; the
+     opening copy is visible from the first paint. */
+  html[data-motion='on'] [data-stop]:not([data-stop='hero']),
+  html[data-motion='on'] [data-span] {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* Lenis smooth scrolling. */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
+
+  .mono {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
 `;
 
 export default GlobalStyles;
