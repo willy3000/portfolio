@@ -176,7 +176,16 @@ const Header = () => {
       <Bar data-scrolled={scrolled} data-menu={menuOpen}>
         <Inner aria-label="Primary">
           <Brand href="#top" aria-label={`${profile.name}, back to top`}>
-            <Monogram aria-hidden="true">WW</Monogram>
+            <Monogram viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="brand-ink" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stopColor="#5cd0ff" />
+                  <stop offset="1" stopColor="#9a8bff" />
+                </linearGradient>
+              </defs>
+              <rect width="64" height="64" rx="15" />
+              <path d="M13 20 L22.5 45 L32 27 L41.5 45 L51 20" stroke="url(#brand-ink)" />
+            </Monogram>
             {profile.name}
           </Brand>
 

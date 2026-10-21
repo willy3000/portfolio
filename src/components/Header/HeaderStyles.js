@@ -46,17 +46,23 @@ export const Brand = styled.a`
   letter-spacing: -0.015em;
 `;
 
-export const Monogram = styled.span`
-  display: grid;
-  place-items: center;
+// The site mark, same as the favicon: a gradient W on a graphite tile.
+export const Monogram = styled.svg`
   width: 1.75rem;
   height: 1.75rem;
-  border-radius: 0.5rem;
-  background: var(--text);
-  color: var(--bg);
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  flex-shrink: 0;
+
+  rect {
+    fill: var(--surface-strong);
+    stroke: var(--hairline-strong);
+    stroke-width: 1.5;
+  }
+  path {
+    fill: none;
+    stroke-width: 6.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
 `;
 
 export const Links = styled.ul`
